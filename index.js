@@ -18,7 +18,7 @@ const input$$ = document.querySelector("input")
  
 button$$.addEventListener("click", () => {
     
-    console.log(input$$.value);
+    
     
     fetch(`https://api.agify.io?name=${input$$.value}`)
     .then((response) => response.json())
@@ -29,6 +29,33 @@ button$$.addEventListener("click", () => {
 a la api que diga...'El nombre X tiene un Y porciento de ser de Z' etc etc.
 EJ: El nombre Pepe tiene un 22 porciento de ser de ET y un 6 porciento de ser 
 de MZ. */
+
+button$$.addEventListener("click", () => {
+    
+    
+    
+    fetch(`https://api.nationalize.io/?name=${input$$.value}`)
+    .then((responses) => responses.json())
+    .then((personas) => {
+        console.log(personas.country[0])
+
+        
+        let p$$ = document.createElement("p")
+        p$$.textContent = `El nombre ${personas.name}`
+        for (const persona of personas.country) {
+            
+            p$$.textContent += `tiene un ${Math.floor(persona.probability * 100)} porciento de ser de ${persona.country_id} y  `
+            
+        }
+        
+        
+        document.body.appendChild(p$$)
+        
+        
+    })
+})
+
+
 
 
 
